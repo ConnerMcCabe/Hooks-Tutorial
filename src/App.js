@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-     
-    </div>
-  );
-}
 
-export default App;
+
+export default function Button() {
+  const [buttonText, setButtonText] = useState('Click me, plz');
+
+  return (
+    <button onClick={ () => setButtonText("Thanks, been clicked")}>
+      {buttonText}
+    </button>
+  )
+};
