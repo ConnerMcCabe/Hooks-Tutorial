@@ -1,30 +1,24 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
-export default class DataLoader extends Component {
-  state = { data: [] };
+export default function DataLoader() {
+  const [data, setData] = useState([]);
 
-  componentDidMount() {
+  useEffect(() => {
     fetch("http://localhost:3001/links/")
       .then(response => response.json())
-      .then(data =>
-        this.setState(() => {
-          return { data };
-        })
-      )
-  }
+      .then(data => setData(data));
+  })
 
-  render() {
     return (
       <div>
         <ul>
-          {this.state.data.map(el => (
+          {data.map(el => (
             <li key={el.id}>{el.title}</li>
           ))}
         </ul>
       </div>
     )
   }
-}
 
 
