@@ -1,17 +1,30 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 
+export default class DataLoader extends Component {
+  state = { data: [] };
 
-
-export default function Button() {
-  const [buttonText, setButtonText] = useState('Click me, plz');
-
-  function handleClick() {
-    return setButtonText("Thanks, been clicked!");
+  componentDidMount() {
+    fetch("http://localhost:3001/links/")
+      .then(response => response.json())
+      .then(data =>
+        this.setState(() => {
+          return { data };
+        })
+      )
   }
-  return (
-    <button onClick={handleClick}>
-      {buttonText}
-    </button>
-  )
-};
+
+  render() {
+    return (
+      <div>
+        <ul>
+          {this.state.data.map(el => (
+            <li key={el.id}>{el.title}</li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+}
+
+
